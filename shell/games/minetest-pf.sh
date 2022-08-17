@@ -1,6 +1,3 @@
-# minetest-p(er)f(ormant)
-# use discrete gpu, force disable vsync
+#!/bin/sh
 
-export DRI_PRIME=1
-export vblank_mode=0
-/usr/bin/minetest
+DRI_PRIME=1 vblank_mode=0 minetest

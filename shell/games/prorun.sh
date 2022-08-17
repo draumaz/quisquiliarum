@@ -1,12 +1,22 @@
-# draumaz/prorun
-# Run executable inside of a Proton prefix.
-# $1 ~ the prefix (e.g. 10090)
-# $2 ~ the executable
+#!/bin/sh
 
-export PROTON_BIN="" # Set to Proton's path.
+err() {
+  cat << EOF
+sh prorun.sh [prefix] [file]
+EOF
+  exit
+}
 
-if [ -z "$PROTON_BIN" ]; then echo "You forgot to set the Proton binary variable. Enter it below."; read $PROTON_BIN; fi
-export STEAM_COMPAT_DATA_PATH="$HOME/.steam/steam/steamapps/compatdata/$1"
+test ! -z $1 || err
+test ! -z $2 || err
+
+export PROTON_BIN="$HOME/.steam/root/steamapps/common/Proton - Experimental/proton"
 export STEAM_COMPAT_CLIENT_INSTALL_PATH="$HOME/.steam/steam"
-export WINEPREFIX=$STEAM_COMPAT_DATA_PATH/pfx
-"$PROTON_BIN" run "$2" 2>&1
+export STEAM_COMPAT_DATA_PATH="${STEAM_COMPAT_CLIENT_INSTALL_PATH}/steamapps/compatdata/$1"
+export WINEPREFIX="${STEAM_COMPAT_DATA_PATH}/pfx"
+
+cat << EOF
+loading file "$2" in prefix "$1"
+EOF
+
+"$PROTON_BIN" run "$2" > /dev/null 2>&1
