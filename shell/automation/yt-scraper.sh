@@ -22,11 +22,11 @@ for ((PAGE=1; ;++PAGE)); do
     cut -c75-85 \
   > .scrapefile
 
-  if [ "$(cat .sloicetmp)" == "" ]; then
+  if [ "$(cat .scrapefile)" == "" ]; then
     echo -e " done\n-- complete --"
     break
   else
-    echo " done ($(wc -l .sloicetmp | sed 's/ .sloicetmp//g') IDs scraped)"
+    echo " done ($(wc -l .scrapefile | sed 's/ .scrapefile//g') IDs scraped)"
     cat .scrapefile >> "scrape_list.txt"
   fi
   
