@@ -6,11 +6,9 @@
 # yt-scraper
 # scrape every video ID of a channel using invidious
 
-# SET THIS
-INSTANCE="https://tube.draumaz.xyz" # insecure http only
-
 touch .scrapefile
-echo "-- scraping channel ID $CHANNEL --"
+echo "-- connecting to invidious instance $INSTANCE"
+echo "-- accessing channel ID $CHANNEL --"
 
 for ((PAGE=1; ;++PAGE)); do
   
