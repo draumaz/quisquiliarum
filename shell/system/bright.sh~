@@ -3,7 +3,7 @@
 file=`find /sys/class/backlight/*`/brightness
 
 case ${1} in
-  -*|+*) INC=0; VAL=$(($(cat $file)${1}${2})) ;; # funky shell-based math
+  -*|+*) INC=0; VAL=$(($(cat $file)${1}${2})) ;;
   *) INC=1; VAL=${1} ;;
 esac
 
