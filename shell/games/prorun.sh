@@ -1,14 +1,9 @@
 #!/bin/sh
 
-err() {
-  cat << EOF
-sh prorun.sh [prefix] [file]
-EOF
-  exit
-}
+err() { printf "sh prorun.sh [prefix] [file]\n"; exit; }
 
-test ! -z $1 || err
-test ! -z $2 || err
+test -z $1 && err
+test -z $2 && err
 
 export PROTON_BIN="$HOME/.steam/root/steamapps/common/Proton - Experimental/proton"
 export STEAM_COMPAT_CLIENT_INSTALL_PATH="$HOME/.steam/steam"
