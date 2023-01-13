@@ -1,6 +1,10 @@
 #!/bin/sh -e
 
-cat >> PKGBUILD << EOF
+test -z "${NAME}" && { printf "missing \${NAME}\n" && exit; }
+test -z "${SUBDIR}" && printf "\${SUBDIR} is empty, proceeding\n"
+
+mkdir -pv "${NAME}"
+cat >> "${NAME}"/PKGBUILD << EOF
 pkgname="${NAME}"
 pkgver="git"
 pkgrel="1"
@@ -20,3 +24,4 @@ package() {
   mv -v "\${pkgname}" "\${pkgdir}/usr/bin"
 }
 EOF
+printf "successfully generated ${NAME}/PKGBUILD.\n"
