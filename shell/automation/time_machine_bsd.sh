@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-# this script initalizes up a Time Machine
+# this script initalizes a Time Machine
 # netatalk server on FreeBSD 13.1.
 
 die() { printf "ERROR: $@\n" && exit; }
@@ -10,7 +10,7 @@ case `uname -s` in FreeBSD) ;; *) die "this script is only meant for FreeBSD." ;
 which -s mip || die "missing mip"
 
 which -s netatalk || \
-  su -c "pkg install -y netatalk3"
+  su -m root -c "pkg install -y netatalk3"
 
 FILE_PATH="/usr/local/etc/afp.conf"
 
