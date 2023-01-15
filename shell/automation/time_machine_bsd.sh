@@ -35,7 +35,7 @@ echo "config written to ${FILE_PATH}."
 
 RCC="/etc/rc.conf"
 
-case `${RCC}` in
+case `cat ${RCC}` in
   *netatalk_enable=*YES*) echo "netatalk already enabled in ${RCC}." ;;
   *)
     echo 'netatalk_enable="YES"' >> ${RCC}
