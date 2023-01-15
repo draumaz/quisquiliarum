@@ -3,6 +3,12 @@
 # this script initalizes up a Time Machine
 # netatalk server on FreeBSD 13.1.
 
+die() { printf "ERROR: $@\n" && exit; }
+
+case `uname -s` in FreeBSD) ;; *) die "this script is only meant for FreeBSD." ;; esac
+
+which -s mip || die "missing mip"
+
 which -s netatalk || \
   su -c "pkg install -y netatalk3"
 
@@ -27,11 +33,13 @@ valid users = `whoami`
 EOF
 echo "config written to ${FILE_PATH}."
 
-case `cat /etc/rc.conf` in
-  *netatalk_enable=*YES*) echo "netatalk already enabled in /etc/rc.conf." ;;
+RCC="/etc/rc.conf"
+
+case `${RCC}` in
+  *netatalk_enable=*YES*) echo "netatalk already enabled in ${RCC}." ;;
   *)
-    echo 'netatalk_enable="YES"' >> /etc/rc.conf
-    echo "netatalk enabled in /etc/rc.conf." ;;
+    echo 'netatalk_enable="YES"' >> ${RCC}
+    echo "netatalk enabled in ${RCC}." ;;
 esac
 
 case `ps aux | grep [n]etata` in
