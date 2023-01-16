@@ -9,7 +9,7 @@ case `uname -s` in FreeBSD) ;; *) die "this script is only meant for FreeBSD." ;
 
 which -s mip || die "missing mip"
 
-test -e ${USERS} || die "please include a valid USERS='' variable."
+case ${USERS} in "") die "please include a valid USERS='' variable." ;; esac
 
 for i in sudo netatalk; do
   which -s $i || pkg install -y $i
