@@ -6,18 +6,21 @@
 die() { printf "ERROR: $@\n" && exit; }
 
 case `uname -s` in FreeBSD) ;; *) die "this script is only meant for FreeBSD." ;; esac
+case `whoami` in root) die "this script should be run as a normal user." ;; esac
 
 which -s mip || die "missing mip"
 
-which -s netatalk || \
-  su -m root -c "pkg install -y netatalk3"
+for i in sudo netatalk; do
+  which -s $i || \
+    sudo "pkg install -y $i"
+done
 
 FILE_PATH="/usr/local/etc/afp.conf"
 
 test -e ${FILE_PATH} && \
   cp -v ${FILE_PATH} ${FILE_PATH}.bak
 
-cat > "${FILE_PATH}" << EOF
+sudo cat > "${FILE_PATH}" << EOF
 # ${FILE_PATH}
 
 [Global]
