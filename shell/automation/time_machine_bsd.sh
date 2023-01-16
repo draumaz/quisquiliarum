@@ -12,8 +12,7 @@ which -s mip || die "missing mip"
 test -e ${USERS} || die "please include a valid USERS='' variable."
 
 for i in sudo netatalk; do
-  which -s $i || \
-    sudo "pkg install -y $i"
+  which -s $i || pkg install -y $i
 done
 
 FILE_PATH="/usr/local/etc/afp.conf"
@@ -21,7 +20,7 @@ FILE_PATH="/usr/local/etc/afp.conf"
 test -e ${FILE_PATH} && \
   cp -v ${FILE_PATH} ${FILE_PATH}.bak
 
-sudo cat > "${FILE_PATH}" << EOF
+cat > "${FILE_PATH}" << EOF
 # ${FILE_PATH}
 
 [Global]
