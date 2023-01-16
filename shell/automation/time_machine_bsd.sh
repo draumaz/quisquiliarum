@@ -6,9 +6,10 @@
 die() { printf "ERROR: $@\n" && exit; }
 
 case `uname -s` in FreeBSD) ;; *) die "this script is only meant for FreeBSD." ;; esac
-case `whoami` in root) die "this script should be run as a normal user." ;; esac
 
 which -s mip || die "missing mip"
+
+test -e ${USERS} || die "please include a valid USERS='' variable."
 
 for i in sudo netatalk; do
   which -s $i || \
@@ -32,7 +33,7 @@ zeroconf = yes
 [Time Machine]
 path = /mnt/storage/time-machine
 time machine = yes
-valid users = `whoami`
+valid users = ${USERS}
 EOF
 echo "config written to ${FILE_PATH}."
 
