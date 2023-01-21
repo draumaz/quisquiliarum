@@ -21,20 +21,20 @@ fs_post() { printf "syncing... "; sync; printf "done\n"; }
 su_att() { "$SU" false }
 
 devi() {
-	case $1 in
-	  mnt)
-	  	case `find ${DESTINATION_MOUNT_POINT}` in "")
-			printf "connect your iPad and hit enter to mount. "; read i
-			if "${SU}" mount ${DESTINATION_MOUNT_DRIVE} ${DESTINATION_MOUNT_POINT}; then
-		  	printf "iPod mounted successfully.\n"; else printf "couldn't mount.\n" && exit; fi
-	  	esac ;;
-	  umnt)
-	    printf "unmount iPod? [y/n]: "; read i
-		case $i in y|Y)
-		  ${SU} umount ${DESTINATION_MOUNT_POINT}
-		  printf "unmounted. remember to update the rockbox database.\n"
-		esac ;;
-	esac
+  case $1 in
+    mnt)
+      case `find ${DESTINATION_MOUNT_POINT}` in "")
+      printf "connect your iPad and hit enter to mount. "; read i
+      if "${SU}" mount ${DESTINATION_MOUNT_DRIVE} ${DESTINATION_MOUNT_POINT}; then
+        printf "iPod mounted successfully.\n"; else printf "couldn't mount.\n" && exit; fi
+      esac ;;
+    umnt)
+      printf "unmount iPod? [y/n]: "; read i
+    case $i in y|Y)
+      ${SU} umount ${DESTINATION_MOUNT_POINT}
+      printf "unmounted. remember to update the rockbox database.\n"
+    esac ;;
+  esac
 }
 
-elev_chk; su_att; devi mnt; rs_put; fs_post; devu umnt
+elev_chk; su_att; devi mnt; rs_put; fs_post; devi umnt
