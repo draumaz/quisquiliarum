@@ -8,9 +8,9 @@ cat >> "${NAME}"/PKGBUILD << EOF
 pkgname="${NAME}"
 pkgver="git"
 pkgrel="1"
-pkgdesc="A program from the quisquilarum repository."
+pkgdesc="A program from the quisquiliarum repository."
 arch=("x86_64")
-url="https://git.goatopossum.com/draumaz/quisquiliarum"
+url="https://github.com/draumaz/quisquiliarum"
 license=("GPL")
 makedepends=("git")
 
