@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh -e
 
 die() {
   printf "["; case ${1} in
@@ -22,16 +22,9 @@ case ${1} in
     case ${CONFS} in "")
       die fatal "no configs matching a '${2}' pattern found."
     esac
-    CFG=$(echo ${CONFS} | tr ' ' '\n' | \
-      head -$(\
-        shuf -i 1-$(\
-          echo ${CONFS} | tr ' ' '\n' | \
-            wc -l | sed 's/ //g'\
-        ) -n 1\
-      ) | \
-        tail -10 | \
-        tail -1\
-    )
+    CFG_COUNT=`echo ${CONFS} | tr ' ' '\n' | wc -l | sed 's/ //g'`
+    CFG_SHUFD=`shuf -i 1-${CFG_COUNT} -n1`
+    CFG=`echo ${CONFS} | tr ' ' '\n' | head -${CFG_SHUFD} | tail -10 | tail -1` 
     case ${CFG} in "") die fatal "failed to find a config." ;; esac 
     echo ${CFG} > .current ;;
   *) printf "${0} [up/down] {suffix}\n" && exit 0 ;;
