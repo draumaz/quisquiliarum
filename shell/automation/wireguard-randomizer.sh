@@ -8,10 +8,6 @@ die() {
   case ${FATAL} in 1) exit 1 ;; esac
 }
 
-case `id -u` in 0) ;; *)
-  die benign "you're not root, this probably won't work."
-esac
-
 case ${1} in
   down) CFG=`cat .current`; rm .current ;;
   up)
@@ -27,7 +23,11 @@ case ${1} in
     CFG=`echo ${CONFS} | tr ' ' '\n' | head -${CFG_SHUFD} | tail -10 | tail -1` 
     case ${CFG} in "") die fatal "failed to find a config." ;; esac 
     echo ${CFG} > .current ;;
-  *) printf "${0} [up/down] {prefix}\n" && exit 0 ;;
+  *) printf "${0} [up/down] {suffix}\n" && exit 0 ;;
 esac
 
-wg-quick ${1} ${CFG}
+case `id -u` in 0) ;; *)
+  case `which doas` in "") ELEV="sudo" ;; *) ELEV="doas" ;; esac
+esac
+
+${ELEV} wg-quick ${1} ${CFG}
