@@ -30,7 +30,7 @@ case `id -u` in 0) ;; *)
   die benign "you're not root, this probably won't work."
 esac
 
-case ${CFG} in "") die "failed to find a config.\n" ;; esac
+case ${CFG} in "") die "failed to find a config." ;; esac
 
 wg-quick ${1} ${CFG}
 echo ${CFG} > .current
