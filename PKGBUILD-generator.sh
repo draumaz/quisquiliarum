@@ -14,7 +14,7 @@ url="https://github.com/draumaz/quisquiliarum"
 license=("GPL")
 makedepends=("git")
 
-source=("git+https://git.goatopossum.com/draumaz/quisquiliarum")
+source=("git+https://github.com/draumaz/quisquiliarum")
 sha256sums=("SKIP")
 
 package() {
