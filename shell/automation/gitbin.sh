@@ -1,9 +1,13 @@
 #!/bin/sh
 
-ls -l ${BIN_PATH}/${SOFTWARE}
-curl -sL https://github.com/${AUTHOR}/${SOFTWARE}/archive/refs/heads/main.tar.gz | \
+# gitbin is a proof-of-concept one-line GitHub binary installer.
+# required variables:
+# $BIN_PATH $BINARY $AUTHOR $NAME $BRANCH
+
+ls -l ${BIN_PATH}/${BINARY}
+curl -sL https://github.com/${AUTHOR}/${NAME}/archive/refs/heads/main.tar.gz | \
   sudo tar -xpzf - \
     --strip-components=1 \
     -C ${BIN_PATH} \
-    ${SOFTWARE}-${BRANCH}/${SOFTWARE}
-ls -l ${BIN_PATH}/${SOFTWARE}
+    ${NAME}-${BRANCH}/${BINARY}
+ls -l ${BIN_PATH}/${BINARY}
