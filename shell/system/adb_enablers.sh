@@ -16,7 +16,7 @@ kde_connect_bidirectional_clipboard_sync_enable() {
     "pm grant $pkg android.permission.READ_LOGS" \
     "appops set $pkg SYSTEM_ALERT_WINDOW allow" \
     "am force-stop $pkg" \
-    "monkey -p $pkg 1 > /dev/null 2>&1"; do
+    "monkey -p $pkg 1 &> /dev/null"; do
       adb shell "${i}" && echo "${i}"
   done
 }
