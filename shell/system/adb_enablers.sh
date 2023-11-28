@@ -9,7 +9,7 @@ kde_connect_bidirectional_clipboard_sync_enable() {
 
   case `adb shell dumpsys package $pkg | grep versionName | tr '=' '\n' | tail -1` in
     1.28.0) ;;
-    *) echo "[fatal] please downgrade KDE Connect to 1.28.0 and try again."; exit 1 ;;
+    *) echo "[fatal] please downgrade KDE Connect to <= 1.28.0 and try again."; exit 1 ;;
   esac
 
   for i in \
