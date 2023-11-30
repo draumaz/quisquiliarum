@@ -27,8 +27,15 @@ shizuku_enable() {
   done
 }
 
+wavelet_permissions() {
+   for i in "pm grant com.pittvandewitt.wavelet android.permission.DUMP"; do
+     adb shell "${i}" && echo "${i}"
+   done
+}
+
 case "${1}" in
   shizuku*) shizuku_enable ;;
   kde*) kde_connect_bidirectional_clipboard_sync_enable ;;
-  *) shizuku_enable; kde_connect_bidirectional_clipboard_sync_enable ;;
+  wavelet*) wavelet_permissions ;;
+  *) shizuku_enable; kde_connect_bidirectional_clipboard_sync_enable; wavelet_permissions ;;
 esac
