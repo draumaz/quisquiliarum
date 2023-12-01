@@ -1,5 +1,7 @@
 #!/bin/sh
 
+do_cmd() { adb shell "${1}" && echo "${1}"; }
+
 case `adb devices | wc | awk '{print $1}'` in
   2) echo "[fatal] please connect your phone and try again."; exit 1 ;;
 esac
@@ -17,21 +19,12 @@ kde_connect_bidirectional_clipboard_sync_enable() {
     "appops set $pkg SYSTEM_ALERT_WINDOW allow" \
     "am force-stop $pkg" \
     "monkey -p $pkg 1 &> /dev/null"; do
-      adb shell "${i}" && echo "${i}"
+      do_cmd "${i}"
   done
 }
 
-shizuku_enable() {
-  for i in "sh /storage/emulated/0/Android/data/moe.shizuku.privileged.api/start.sh &> /dev/null"; do
-    adb shell "${i}" && echo "${i}"
-  done
-}
-
-wavelet_permissions() {
-   for i in "pm grant com.pittvandewitt.wavelet android.permission.DUMP"; do
-     adb shell "${i}" && echo "${i}"
-   done
-}
+shizuku_enable() { do_cmd "sh /storage/emulated/0/Android/data/moe.shizuku.privileged.api/start.sh &> /dev/null"; }
+wavelet_permissions() { do_cmd "pm grant com.pittvandewitt.wavelet android.permission.DUMP"; }
 
 case "${1}" in
   shizuku*) shizuku_enable ;;
