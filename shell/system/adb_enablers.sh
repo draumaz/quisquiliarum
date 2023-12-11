@@ -26,9 +26,20 @@ kde_connect_bidirectional_clipboard_sync_enable() {
 shizuku_enable() { do_cmd "sh /storage/emulated/0/Android/data/moe.shizuku.privileged.api/start.sh &> /dev/null"; }
 wavelet_permissions() { do_cmd "pm grant com.pittvandewitt.wavelet android.permission.DUMP"; }
 
+immersive_toggle() {
+  case "`adb shell settings get global policy_control | grep immersive.full`" in
+    "") do_cmd "settings put global policy_control immersive.full=*" ;;
+    *)  do_cmd "settings put global policy_control null*" ;;
+  esac
+}
 case "${1}" in
-  shizuku*) shizuku_enable ;;
-  kde*) kde_connect_bidirectional_clipboard_sync_enable ;;
-  wavelet*) wavelet_permissions ;;
-  *) shizuku_enable; kde_connect_bidirectional_clipboard_sync_enable; wavelet_permissions ;;
+  "")
+    shizuku_enable; kde_connect_bidirectional_clipboard_sync_enable; wavelet_permissions
+          
+    # customize what to do based on device
+    case "`adb shell 'echo $HOSTNAME'`" in
+      "gta4xlvewifi") immersive_toggle ;;
+    esac
+  ;;
+  *) "${1}" ;;
 esac
