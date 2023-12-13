@@ -33,13 +33,10 @@ immersive_toggle() {
   esac
 }
 case "${1}" in
-  "")
-    shizuku_enable; kde_connect_bidirectional_clipboard_sync_enable; wavelet_permissions
-          
-    # customize what to do based on device
-    case "`adb shell 'echo $HOSTNAME'`" in
-      "gta4xlvewifi") immersive_toggle ;;
-    esac
-  ;;
+  "") shizuku_enable; kde_connect_bidirectional_clipboard_sync_enable; wavelet_permissions ;;
+  immersive*) immersive_toggle ;;
+  wavelet*) wavelet_permissions ;;
+  shizuku*) shizuku_enable ;;
+  kde*) kde_connect_bidirectional_clipboard_sync_enable ;;
   *) "${1}" ;;
 esac
