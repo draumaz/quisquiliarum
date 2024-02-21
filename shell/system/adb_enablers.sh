@@ -34,9 +34,9 @@ immersive_toggle() {
 }
 case "${1}" in
   "") shizuku_enable; kde_connect_bidirectional_clipboard_sync_enable; wavelet_permissions ;;
-  immersive*) immersive_toggle ;;
-  wavelet*) wavelet_permissions ;;
-  shizuku*) shizuku_enable ;;
-  kde*) kde_connect_bidirectional_clipboard_sync_enable ;;
+  immersive*|i*) immersive_toggle ;;
+  wavelet*|w*) wavelet_permissions ;;
+  shizuku*|s*) shizuku_enable ;;
+  kde*|k*) kde_connect_bidirectional_clipboard_sync_enable ;;
   *) "${1}" ;;
 esac
